@@ -1,0 +1,319 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>José Carlos' Portfolio</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+	<link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="mobile-menu-open" class="shadow-large">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+    </div>
+    <!-- End #mobile-menu-toggle -->
+    <div id="lead">
+        <div id="particles-js"></div>
+        <div id="lead-content">
+            <h1>JOSÉ CARLOS</h1>
+            <h1>DEL VALLE</h1>
+            <br>
+            <strong><h2 style="color:#fff"> Actuary | Data Analyst | Data Scientist </h2></strong>
+            <a target="_blank" href="https://drive.google.com/open?id=1CorknzyG8Tjku84dKikZ7a541HdcTsJZ" class="btn-rounded-white">Download Resume</a>
+
+        </div>
+
+    </div>
+    <!-- End #lead -->
+    <div id="lead-down">
+        <span>
+            <i class="fa fa-chevron-down" aria-hidden="true"></i>
+        </span>
+    </div>
+
+    <script src="js/particles.js"></script>
+    <script src="js/appHome.js"></script>
+
+
+    <div id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h2 class="heading">About Me</h2>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                        I am an Actuary focused in Data Analysis, Data Visualization, Statistics and Risk.
+                        My experience includes Data Quality, pre-processing, apply statistical, probability and machine learning methods, data visualization, reporting and opportunity areas detection.
+                    </p>
+                    <p> My programming path started in 2010 at CCPM, then, I decided to study Actuarial Sience falling in love with the idea of predict the future. I move to Ireland in 2019, looking for the next step of my career. </p>
+
+                    <p> Over the last 2 years I have been working as a Data Analyst/ Business Consultant, participating and leading projects for International Banks, Insurance and Healthcare companies in México. </p>
+                    <p> As consecuence, I have polish up my learning process by myself, investing in my education deliver exceptional work to each employer I have worked for. </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End #about -->
+
+    <div id="experience" class="background-alt">
+        <h2 class="heading">Experience</h2>
+        <div id="experience-timeline">
+            <div data-date="April 2019 – Present">
+                <h3>Independent R Developer</h3>
+                <h4>R Developer</h4>
+                <p>
+                    Creating Shiny Apps, specific functions and libraies in R according to the customer requirments
+                </p>
+            </div>
+
+            <div data-date="Octuber 2017 – March 2019">
+                <h3>Management Solutions</h3>
+                <h4>Data Analytics/Business Consultant</h4>
+                <p>
+                    Project in a Public Institution in Brazil, when i was responsible for create new functionalities and make the existing functionalities working well.
+                </p>
+                <p>
+                    I was responsible for managing all health systems of the public institution, including users, queries and integrations with other systems of the company.
+                    Working with Java, Spring boot, Struts 2, MVC, EJB, Maven, WebServices, JasperReport, Git, Jboss, Junit, Oracle...
+                </p>
+            </div>
+
+            <div data-date="January 2017 – July 2017">
+                <h3>National University Autonomous of Mexico</h3>
+                <h4>Mathematicas Analysis Teacher Assistant</h4>
+                <p>
+                    Responsible for developing front-end pages in JSF, Javascript and Html,
+                </p>
+            </div>
+
+            <div data-date="August 2014 – Octuber 2015">
+                <h3>IMEF Universitary</h3>
+                <h4>Research and Social Responsability Vice President</h4>
+                <p>
+                    Responsible for development of Reports and Dashboards in excel
+                </p>
+                <p>
+                    Responsible for the maintenance of the WEB systems of the company, data processing, integration with Excel macros.
+                </p>
+            </div>
+        </div>
+    </div>
+    <!-- End #experience -->
+
+    <div id="education">
+        <h2 class="heading">Education</h2>
+        <div class="education-block">
+            <h3>National University Autonomous of Mexico (UNAM)</h3>
+            <span class="education-date">August 2013 - December 2017</span>
+            <h4>B.S. Actuarial Science </h4>
+            <p>
+                Pure mathematic, Statistic, Probability, Finance, Insurance, Data Analytics | GPA:88 (> percentile 94%)
+            </p>
+        </div>
+        <!-- End .education-block -->
+
+        <div class="education-block">
+            <h3>Centro de Comutación Profesional de México (CCPM)</h3>
+            <span class="education-date">September 2010 - August 2013</span>
+            <h4>Systems Computers Technician</h4>
+            <p>
+                Operative Systems, VBA, SQL, MS Office and Computer Science | GPA:98 (> percentile 99%, Hons)
+            </p>
+        </div>
+        <!-- End .education-block -->
+    </div>
+    <!-- End #education -->
+
+    <div id="projects" class="background-alt">
+        <h2 class="heading">Projects</h2>
+        <div class="container">
+            <div class="row">
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/zk.png" width="300px" height="300px" />
+                    </div>
+                    <!-- End .project-image -->
+                    <div class="project-info">
+                        <h3>My R package</h3>
+                        <p>
+                            Extends the fitdist() (from 'fitdistrplus') adding the Anderson-Darling ad.test() (from 'ADGofTest') and Kolmogorov Smirnov Test ks.test() as engine, using 'stats' package and offering a new function which uses mixed and multimodal distributions to fit, these are split via unsupervised learning and Mclust() function (from 'mclust').
+                        </p>
+                        <p> - install.packages("FitUltD")</p>
+                        <a href="https://github.com/jcval94/FitUltD">View Project</a>
+                    </div>
+                    <!-- End .project-info -->
+                </div>
+                <!-- End .project -->
+
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/project.jpg" width="300px" height="300px" />
+                    </div>
+                    <!-- End .project-image -->
+                    <div class="project-info">
+                        <h3>SQL Reporting tool</h3>
+                        <p>
+                            Tool to compile SQL queries and R code in the same database, generating automatable driven reports and visualizing the data
+                        </p>
+                        <a href="https://valc941226.shinyapps.io/SQL_Reports/">View Project</a>
+                    </div>
+                    <!-- End .project-info -->
+                </div>
+                <!-- End .project -->
+
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/project2.jpg" width="300px" height="300px" />
+                    </div>
+                    <!-- End .project-image -->
+                    <div class="project-info">
+                        <h3>Ensemble Learning for Time-Series</h3>
+                        <p>
+                            This Time Series Analysis (TSA) arose when revealing the relationship between the products consumption and the seasonality. It was necessary to fit more strictly the seasonal component of a series of time. After some research, I discovered an article where Fourier series were used with machine learning models to improve accuracy. I improved that model including seasonality tests, periodograms and a automatable ARIMA model to compare discrepancy.
+                        </p>
+                        <a href="https://jcval94.shinyapps.io/Ensemble-Learning-for-Time-Series/">View Project</a>
+                    </div>
+                    <!-- End .project-info -->
+                </div>
+                <!-- End .project -->
+
+                <div class="project shadow-large">
+                    <div class="project-image">
+                        <img src="images/project3.jpg" width="300px" height="300px" />
+                    </div>
+                    <!-- End .project-image -->
+                    <div class="project-info">
+                        <h3>Time Series and Operations Research</h3>
+                        <p>
+                            Testing Time Series predictions, getting the optimal wine sales strategy throught Operations Research
+                        </p>
+                        <a href="https://github.com/jcval94/Articles/blob/master/TSA_Wine.pdf">View Project</a>
+                    </div>
+                    <!-- End .project-info -->
+                </div>
+                <!-- End .project -->
+            </div>
+        </div>
+    </div>
+    <!-- End #projects -->
+
+    <div id="skills">
+        <h2 class="heading">Languages</h2>
+        <ul>
+            <li>Spanish (native)</li>
+            <li>English (advanced)</li>
+            <li>French (pre intermediate)</li>
+        </ul>
+        <br><h2 class="heading">Programming Skills</h2>
+        <ul>
+            <li>R</li>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>VBA</li>
+            <li>Excel</li>
+            <li>MS Access</li>
+            <li>HTML</li>
+            <li>Scala</li>
+        </ul>
+        <br>
+        <h2 class="heading">Mathematics & Statistics</h2>
+        <ul>
+            <li>Copula Theory</li>
+            <li> Time Series</li>
+            <li> Simulation</li>
+            <li> Goodness of Fit tests</li>
+            <li> ANOVA</li>
+            <li> Outliers detection</li>
+            <li> MAPE</li>
+            <li> ROC</li>
+            <li> Accuracy Score</li>
+            <li> Gini Index</li>
+            <li> R Squared Adjusted</li>
+            <li> BIAS</li>
+            <li> AIC</li>
+            <li> Correlation</li>
+            <li> Chi square test</li>
+            <li> Ceasonality test</li>
+            <li> Hypothesis testing</li>
+            <li> Non-linear regression</li>
+            <li> Sampling</li>
+            <li> Boxplot</li>
+            <li> Fourier Series</li>
+            <li> Standardization</li>
+            <li> Bootstrapping</li>
+        </ul>
+        <br><h2 class="heading">Hobbies</h2>
+            <ul>
+                <li>Rubik's Cube (PB: 15.08 segs)</li>
+                <li>Play Guitar</li>
+                <li>Cycling</li>
+                <li>Running</li>
+                <li>Try to solve P vs NP problem</li>
+                <li>Netflix</li>
+                <li>Harry Potter</li>
+                <li>Marvel</li>
+            </ul>
+    </div>
+    <!-- End #skills -->
+
+    <div id="contact">
+        <h2>Get in Touch</h2>
+        <div id="contact-form">
+            <form method="POST" action="https://formspree.io/valc941226@gmail.com">
+                <input type="hidden" name="_subject" value="Contact request from personal website" />
+                <input type="email" name="_replyto" placeholder="Your email" required>
+                <textarea name="message" placeholder="Your message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+        <!-- End #contact-form -->
+    </div>
+    <!-- End #contact -->
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 copyright">
+                    <p>
+                        Copyright &copy; 2019 José Carlos Del Valle
+                    </p>
+                </div>
+                <div class="col-sm-2 top">
+                    <span id="to-top">
+                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="col-sm-5 social">
+                    <ul>
+                        <li>
+                            <a href="https://github.com/jcval94" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://stackoverflow.com/" target="_blank"><i class="fa fa-stack-overflow" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/jose-carlos-del-valle/?locale=en_US" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                        </li>
+                        <li>
+                            <a href="https://www.facebook.com/jose.carlos.del.valle94" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End footer -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/scripts.min.js"></script>
+</body>
+
+</html>
