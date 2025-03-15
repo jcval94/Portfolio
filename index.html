@@ -1,503 +1,1167 @@
-﻿<html class="no-js" lang="en">
+﻿<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>José Carlos' Portfolio</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
-    <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/styles.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>José Carlos' Portfolio</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  
+  <!-- Fuentes y librerías CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/styles.css" rel="stylesheet">
+
+  <!-- Estilos ESPECÍFICOS para la NUEVA SECCIÓN de pop-ups. Puedes moverlos a css/styles.css -->
+  <style>
+    
+    /* Botones de filtrado (estilo profesional y claro) */
+    .tech-filter-buttons {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .tech-filter-buttons .filter-btn {
+        display: inline-block;
+        padding: 5px 12px;  /* ajustado ligeramente para mejor proporción */
+        font-size: 0.9rem;
+        color: #0d405f;
+        background-color: #ffffff;
+        border: 1px solid #ffffff;
+        border-radius: 3px; /* ligera redondez profesional */
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 1px 4px rgba(52, 152, 216, 0.2);
+        margin: 3px;
+    }
+
+    .tech-filter-buttons .filter-btn:hover {
+        background-color: #3498D8;
+        color: #ffffff;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.3);
+    }
+
+
+    /* Grid de proyectos */
+    .portfolio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centra el contenido en cada fila */
+    gap: 20px;
+    }
+
+    /* 4 columnas => cada item ~220px */
+    .portfolio-item {
+    width: 220px; /* Ajusta para 4 por fila */
+    height: 220px; 
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    }
+
+    /* ... (resto de estilos de hover, .modal-custom, .stars-container, etc.) ... */
+
+
+    .portfolio-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5%; /* Borde redondo (puedes ajustarlo a 50% para un círculo) */
+      display: block;
+    }
+    /* Overlay al pasar el mouse */
+    .portfolio-hover {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .portfolio-item:hover .portfolio-hover {
+      opacity: 1;
+    }
+    .portfolio-hover-content {
+      color: #fff;
+    }
+
+    /* ========== MODAL PERSONALIZADO ========== */
+    .modal-custom {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      display: none; /* Oculto por defecto */
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    .modal-custom.active {
+      display: flex; /* Se muestra al activarse */
+    }
+
+    /* Contenedor de partículas, detrás del contenido */
+    .stars-container {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 2s ease-out; /* Fade-out suave */
+    }
+
+    /* Contenido principal del modal */
+    .modal-content-custom {
+      position: relative;
+      z-index: 2; /* Encima de .stars-container */
+      background: #fff;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 600px;
+      overflow: hidden;
+    }
+
+    /* Botón de cierre (X) */
+    .close-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 99999;
+    }
+
+    /* Cabecera con imagen de fondo */
+    .modal-header-custom {
+      position: relative;
+      height: 150px;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      color: #fff;
+    }
+    .modal-header-custom::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.5), transparent);
+      z-index: 1;
+    }
+    .modal-header-custom h5,
+    .modal-header-custom a {
+      position: relative;
+      z-index: 2; /* Para estar por encima del degradado */
+    }
+
+    /* Cuerpo del modal */
+    .modal-body-custom {
+      padding: 20px;
+    }
+
+    /* Botón estilo "Download Resume" */
+    .btn-rounded-white {
+      display: inline-block;
+      padding: 10px 20px;
+      color: #fff;
+      background: transparent;
+      border: 2px solid #fff;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .btn-rounded-white:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    /* Íconos de tecnologías */
+    .tech-icons {
+      margin: 15px 0;
+    }
+    .tech-icons img {
+    max-height: 24px;   /* Limita altura a 30px */
+    height: auto;       /* Mantiene relación de aspecto */
+    width: auto;        /* Se ajusta automáticamente */
+    margin-right: 8px;
+    vertical-align: middle;
+    }
+
+  </style>
 </head>
 
 <body>
-    <div id="lead">
-        <div id="particles-js"></div>
-        <div id="lead-content">
-            <h3>JOSÉ CARLOS</h3>
-            <h3>DEL VALLE LÓPEZ</h3>
-            <br>
-            <strong><h2 style="color:#fff"> Actuary | Data Scientist </h2></strong>
-            <a target="_blank" href="https://docs.google.com/document/d/1x-F2Jos3H3sOz94S-y-RJOwkTSA5jPOQ15LSxT78zIM/edit?usp=sharing" class="btn-rounded-white">Download Resume</a>
-        </div>
+  <div id="lead">
+    <div id="particles-js"></div>
+    <div id="lead-content">
+      <h1>JOSÉ CARLOS</h1>
+      <h1>DEL VALLE LÓPEZ</h1>
+      <br>
+      <strong><h2 style="color:#fff"> Actuary | Data Scientist </h2></strong>
+      <a target="_blank" href="https://docs.google.com/document/d/1x-F2Jos3H3sOz94S-y-RJOwkTSA5jPOQ15LSxT78zIM/edit?usp=sharing" class="btn-rounded-white">Download Resume</a>
     </div>
-    <!-- End #lead -->
-    <div id="lead-down">
-        <span>
-            <i class="fa fa-chevron-down" aria-hidden="true"></i>
-        </span>
-    </div>
-
-    <script src="js/particles.js"></script>
-    <script src="js/appHome.js"></script>
-
-
-    <div id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2 class="heading">About Me</h2>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      I believe in the greatness of every job—every effort, when embraced with humility, becomes a seed of transformation. Empathy is the bridge that connects our experiences with those of others, turning understanding into life-changing actions. Transforming data into impactful solutions is more than just work; it is a daily commitment to innovation, excellence, and making a genuine difference in the world.
-                    </p>
-                 </div>
-            </div>
-        </div>
-    </div>
-    <!-- End #about -->
-
-    <div id="projects" class="background-alt">
-      <h2 class="heading">Projects</h2>
-      <div class="container">
-          <div class="row">
-                <div class="project shadow-large">
-                    <div class="project-image">
-                        <img src="images/insideforest.png" width="300px" height="300px" />
-                    </div>
-                    <!-- End .project-image -->
-                    <div class="project-info">
-                        <h3>My first Python Library</h3>
-                        <p>
-                            InsideForest is a Random Forest extended technique which provides a comprehensive AI solution for identifying and describing categories within data
-                        </p>
-
-                        <a href="https://github.com/jcval94/InsideForest">View Project</a>
-                    </div>
-                    <!-- End .project-info -->
-                </div>
-                <!-- End .project -->
-               <div class="project shadow-large">
-                  <div class="project-image">
-                      <img src="images/zk.png" width="300px" height="300px" />
-                  </div>
-                  <!-- End .project-image -->
-                  <div class="project-info">
-                      <h3>My first R package</h3>
-                      <p>
-                          Extends the fitdist() (from 'fitdistrplus') adding the Anderson-Darling and Kolmogorov Smirnov Tests as engine, offering a new function which uses mixed and multimodal distributions to fit, these are split via unsupervised learning. Some applications:
-                      </p>
-                      <p>
-                          -Growth rates among interest rates
-                      </p>
-                      <p>
-                          -Insurance policies frequency
-                      </p>
-                      <p>
-                          -Fraud detection
-                      </p>
-
-                      <a href="https://github.com/jcval94/FitUltD">View Project</a>
-                  </div>
-                  <!-- End .project-info -->
-              </div>
-              <!-- End .project -->
-
-              <div class="project shadow-large">
-                  <div class="project-image">
-                      <img src="images/project.jpg" width="300px" height="300px" />
-                  </div>
-                  <!-- End .project-image -->
-                  <div class="project-info">
-                      <h3>SQL Reporting tool</h3>
-                      <p>
-                          Tool to compile SQL queries and R code in the same database, generating automatable driven reports
-                      </p>
-                      <p>
-                          -Saving roughly 10 hours per week
-                      </p>
-                      <p>
-                          -SQL, R, Excel and Word (or PDF) integration
-                      </p>
-                      <p>
-                          -Real Time Analysis
-                      </p>
-                      <a href="https://valc941226.shinyapps.io/SQL_Reports/">View Project</a>
-                  </div>
-                  <!-- End .project-info -->
-              </div>
-              <!-- End .project -->
-
-              <div class="project shadow-large">
-                  <div class="project-image">
-                      <img src="images/project2.jpg" width="300px" height="300px" />
-                  </div>
-                  <!-- End .project-image -->
-                  <div class="project-info">
-                      <h3>Ensemble Learning for Time-Series</h3>
-                      <p>
-                          Time Series Analysis (TSA) to fit more strictly the seasonal component by using Fourier series and machine learning models. This project includes seasonality tests and an automatable ARIMA model to compare discrepancy.
-                      </p>
-                      <p>
-                          -Population aging
-                      </p>
-                      <p>
-                          -Pricing, products' consumption and their seasonality
-                      </p>
-                      <p>
-                          -Emergence of seasonal diseases
-                      </p>
-                      <p>
-                          -Fraud detection
-                      </p>
-                      <p>
-                          <a href="https://jcval94.shinyapps.io/Ensemble-Learning-for-Time-Series/">View Project</a>
-                      </p>
-                      
-                  </div>
-                  <!-- End .project-info -->
-              </div>
-              <!-- End .project -->
-
-              <div class="project shadow-large">
-                  <div class="project-image">
-                      <img src="images/project3.jpg" width="300px" height="300px" />
-                  </div>
-                  <!-- End .project-image -->
-                  <div class="project-info">
-                      <h3>Wine production and sales optimization with Time Series and Operations Research</h3>
-                      <p>
-                          Testing Time Series predictions, getting the optimal wine sales strategy throught Operations Research
-                      </p>
-                      <a href="https://github.com/jcval94/Articles/blob/master/TSA_Wine.pdf">View Project</a>
-                  </div>
-                  <!-- End .project-info -->
-              </div>
-              
-              <div class="project shadow-large">
-                  <div class="project-image">
-                      <img src="images/wzk.png" width="300px" height="300px" />
-                  </div>
-                  <!-- End .project-image -->
-                  <div class="project-info">
-                      <h3>My second R package</h3>
-                      <p>
-                          The goal of shortcuts is to accelerate code writting in R and RStudio via addins.
-                      </p>
-                      <p>
-                          -Copy and Paste tables into R without using code.
-                      </p>
-                      <p>
-                          -Get every agument and its values from a function.
-                      </p>
-                      <p>
-                          -Automated clean code and apply styling to it.
-                      </p>
-                      <a href="https://github.com/jcval94/shortcuts">View Project</a>
-                  </div>
-                  <!-- End .project-info -->
-              </div>
-              <!-- End .project -->
-          </div>
-      </div>
   </div>
-  <!-- End #projects -->
+  <!-- End #lead -->
 
-
-
-    <div id="education">
-        <h2 class="heading">Education</h2>
-        <div class="education-block">
-            <h3>National University Autonomous of Mexico (UNAM)</h3>
-            <span class="education-date">Aug. 2013 - Dec. 2017</span>
-            <h4>B.S. Actuarial Science </h4>
-            <p>
-                Mathematics, Statistics, Probability, Finance, Insurance, Linear Algebra, Data Analytics | GPA: 88 (> percentile 94%)
-            </p>
-        </div>
-        <!-- End .education-block -->
-        
-        <div class="education-block">
-            <h3>Centro de Computación Profesional de México (CCPM)</h3>
-            <span class="education-date">Dec. 2011 - Aug. 2013</span>
-            <h4>Systems Computers Technician</h4>
-            <p>
-                Computational Systems, VBA, SQL, and full MS Office (Word, Excel, Power Point, Acess, Publisher, etc.) | GPA: 99 (> percentile 99%, Hons).
-            </p>
-        </div>
-        <!-- End .education-block -->
-        
-        <div class="education-block">
-            <h3>Centro de Computación Profesional de México (CCPM)</h3>
-            <span class="education-date">Sept. 2010 - Dec. 2011</span>
-            <h4>Digital Graphic Design Technician</h4>
-            <p>
-                Adobe Flash, Adobe Photoshop, Adobe Illustrator, HTML, Blender, 3D Studio Max, etc. GPA: 100 (> percentile 99%, Hons).
-            </p>
-        </div>
-        <!-- End .education-block -->
-        
-    </div>
-    <!-- End #education -->
-
-    
-    <!-- <div id="experience" class="background-alt">
-      <h2 class="heading">Experience</h2>
-      <div id="experience-timeline">
-          <div data-date="Mexico City, December 2019 – Present">
-              <h3> Management Solutions </h3>
-              <h4> Business Consultant </h4>
-              <p>
-                  Defining the insurance sales process for Telemarketing Oubound implementing Salesforce and Pure Cloud.
-              </p>
-          </div>
-          <div data-date="Dublin, April 2019 – November 2019">
-              <h3>ISI English Language School</h3>
-              <h4>Independent R Developer & English Language Exchange Student</h4>
-              <p>
-                  Developing Shiny Apps, specific functions and libraries in R according to the customer requirements while I was taking an English Language Exchange Program.
-              </p>
-          </div>
-
-          <div data-date="Mexico City, Octuber 2017 – March 2019">
-              <h3>Management Solutions</h3>
-              <h4>Data Analytics/Business Consultant</h4>
-              <p>
-                  Some of my experience includes analysing and detecting demographic patterns for epidemiology and pharmacoeconomics developing automated visualization tools for it using R and VBA as engine, also I have applied machine learning ensemble methods professionally creating strategies to collect insurance premiums and I have an approach to Big Data.
-              </p>
-          </div>
-
-          <div data-date="Mexico City, January 2017 – July 2017">
-              <h3>National University Autonomous of Mexico</h3>
-              <h4>Mathematical Analysis Teacher Assistant</h4>
-              <p>
-                  Transforming mathematical concepts into simple examples and filling calculus and algebra gaps.
-              </p>
-          </div>
-
-          <div data-date="Mexico City, August 2014 – Octuber 2015">
-              <h3>IMEF Universitary</h3>
-              <h4>Research and Social Responsibility Vice President</h4>
-              <p>
-                  Debates Team Founder, Debates against IPN and EBC School
-              </p>
-              <p>
-                  Talks: "Ahorra o Nunca" (Save Now or Never), "La educación es primero" (Education First)
-              </p>
-          </div>
-      </div>
+  <div id="lead-down">
+    <span>
+      <i class="fa fa-chevron-down" aria-hidden="true"></i>
+    </span>
   </div>
-  End #experience -->
 
-    <div id="experience" class="background-alt">
-      <h2 class="heading">Experience</h2>
-      <div id="experience-timeline">
-    
-        <!-- BBVA: May 2021 – Present -->
-        <div data-date="Mexico City, May 2021 – Present">
-          <h3>BBVA</h3>
-          <h4>Data Scientist / Analyst / Associate / Expert</h4>
-          <p>
-            From 2021 onward, I have driven data science initiatives within BBVA, focusing on compliance, operational optimization, and client-centric solutions:
-            <ul>
-              <li>
-                <strong>Demand Forecasting & Data Engineering:</strong> Enhanced and deployed ML models and ETL processes for currency forecasting, boosting cost-efficiency and decision-making accuracy.
-              </li>
-              <li>
-                <strong>ATM Distribution Model:</strong> Engineered the methodology that guides new ATM placements, saving MXN 1 million per redistributed ATM by optimizing siting strategies.
-              </li>
-              <li>
-                <strong>Client Segmentation & Engagement:</strong> Classified customer profiles using supervised and unsupervised techniques. Implemented a “Best Time to Call” model that targets high-value, highly engaged segments.
-              </li>
-              <li>
-                <strong>Fraud Detection & Compliance:</strong> Created an algorithm to predict claim probabilities—reducing the evaluation pool from 1 in 450 to 1 in 34—and identified hidden fraud patterns. Improved fraud detection accuracy from 19% to 37%.
-              </li>
-              <li>
-                <strong>LLM Adoption & Regulatory Integration:</strong> Leveraged large language models to translate complex bank regulations into user-friendly guidance, minimizing reputational risk and elevating overall compliance.
-              </li>
-            </ul>
-          </p>
+  <!-- Scripts de partículas (opcional) -->
+  <script src="js/particles.js"></script>
+  <script src="js/appHome.js"></script>
+
+  <!-- ================ SECCIÓN ABOUT ================ -->
+  <div id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h2 class="heading">About Me</h2>
         </div>
-    
-        <!-- Management Solutions: Dec 2019 – May 2021 -->
-        <div data-date="Mexico City, December 2019 – May 2021">
-          <h3>Management Solutions</h3>
-          <h4>Business Consultant / Senior Data Scientist</h4>
+        <div class="col-md-8">
           <p>
-            During this period, I provided data-driven solutions for the banking and insurance industries:
-            <ul>
-              <li>
-                <strong>Insurance Sales Process Optimization:</strong> Defined and implemented telemarketing strategies using Salesforce and Pure Cloud, streamlining outreach and upselling approaches.
-              </li>
-              <li>
-                <strong>Cost Forecasting & Savings:</strong> Applied Bayesian linear regression to project mainframe operation costs, optimizing resources and reducing overhead.
-              </li>
-              <li>
-                <strong>False Clarifications Prediction:</strong> Built an interactive dashboard via PySpark and MicroStrategy, saving up to MXN 1.8 million quarterly by identifying potential inaccuracies before they escalated.
-              </li>
-              <li>
-                <strong>Fraud Prevention Collaboration:</strong> Integrated expert insights into ML algorithms for prioritizing fraud-related clarifications—expanding daily case capacity from 25 to 120 and strengthening detection thresholds.
-              </li>
-            </ul>
-          </p>
-        </div>
-    
-        <!-- Dublin: Apr 2019 – Nov 2019 -->
-        <div data-date="Dublin, April 2019 – November 2019">
-          <h3>ISI English Language School</h3>
-          <h4>Independent R Developer & English Language Exchange Student</h4>
-          <p>
-            Developed Shiny Apps, custom functions, and R libraries for clients while refining my communication skills through an immersive English Language Exchange Program.
-          </p>
-        </div>
-    
-        <!-- Management Solutions: Oct 2017 – Mar 2019 -->
-        <div data-date="Mexico City, October 2017 – March 2019">
-          <h3>Management Solutions</h3>
-          <h4>Data Analytics / Business Consultant</h4>
-          <p>
-            Analyzed demographic patterns for epidemiology and pharmacoeconomics, and automated visualization tools using R and VBA. Applied machine learning ensemble methods to guide insurance premium collection strategies and gained hands-on exposure to Big Data frameworks.
-          </p>
-        </div>
-    
-        <!-- UNAM: Jan 2017 – Jul 2017 -->
-        <div data-date="Mexico City, January 2017 – July 2017">
-          <h3>National University Autonomous of Mexico</h3>
-          <h4>Mathematical Analysis Teacher Assistant</h4>
-          <p>
-            Simplified complex mathematical concepts with illustrative examples, bridging gaps in calculus and algebra proficiency.
-          </p>
-        </div>
-    
-        <!-- IMEF Universitary: Aug 2014 – Oct 2015 -->
-        <div data-date="Mexico City, August 2014 – October 2015">
-          <h3>IMEF Universitary</h3>
-          <h4>Research and Social Responsibility Vice President</h4>
-          <p>
-            Founded a Debate Team, successfully competing against IPN and EBC schools, and promoted financial literacy and academic excellence through signature talks such as "Save Now or Never" and "Education First."
+            I believe in the greatness of every job—every effort, when embraced with humility, becomes a seed of transformation. Empathy is the bridge that connects our experiences with those of others, turning understanding into life-changing actions. Transforming data into impactful solutions is more than just work; it is a daily commitment to innovation, excellence, and making a genuine difference in the world.
           </p>
         </div>
       </div>
+    </div>
+  </div>
+  <!-- End #about -->
+
+  <!-- <div class="pryectos-grid", style="background:#f2f2f5;"> -->
+  <div  id="projects" class="background-alt">
+    <h2 class="heading2">Projects</h2>
+    <!-- Botones de filtrado -->
+    <div class="tech-filter-buttons">
+      <button class="filter-btn" data-tech="all">ALL</button>
+      <button class="filter-btn" data-tech="python">Python</button>
+      <button class="filter-btn" data-tech="sklearn">sklearn</button>
+      <button class="filter-btn" data-tech="r">R</button>
+      <button class="filter-btn" data-tech="sql">SQL</button>
+      <button class="filter-btn" data-tech="git">Git</button>
+      <button class="filter-btn" data-tech="github">GitHub</button>
+      <button class="filter-btn" data-tech="vsc">VSC</button>
     </div>
   
-
-    <div id="skills" >
-        <h2 class="heading">Soft Skills</h2>
-        <ul>
-            <li> Communication</li>
-            <li> Creativity</li>
-            <li> Teamwork</li>
-            <li> Work Ethic</li>
-            <li> Problem Solving</li>
-            <li> Time Management</li>
-            <li> Meditation</li>
-        </ul>
-        <br>
-        <h2 class="heading">Certificates and Adwards</h2>
-        <ul>
-            <li> IELTS (6.0) (In progress to get 7.5)</li>
-            <li> Scrum Master</li>
-            <li> Python Data Science - IBM</li>
-            <li> ISI English Language School (B2+) (C1 level in progress)</li>
-            <li> Artificial Intelligence - HarvardX (In progress)</li>
-        </ul>
-        <br>
-        <h2 class="heading">Programming Languages and Softwares</h2>
-        <ul>
-            <li>R & RStudio</li>
-            <li>Python</li>
-            <li>SQL</li>
-            <li>VBA</li>
-            <li>Excel</li>
-            <li>MS Access</li>
-            <li>HTML</li>
-            <li>Scala</li>
-        </ul>
-        <br>
-        <h2 class="heading">Statistics & More</h2>
-        <ul>
-            <li> Data Quality</li>
-            <li> Copula Theory</li>
-            <li> Time Series</li>
-            <li> Simulation</li>
-            <li> Finance</li>
-            <li> Game Theory</li>
-            <li> Risk Theory</li>
-            <li> Ruin Theory</li>
-            <li> Actuarial Mathematics</li>
-            <li> Goodness of Fit tests</li>
-            <li> ANOVA</li>
-            <li> Outliers detection</li>
-            <li> ROC</li>
-            <li> Accuracy Score</li>
-            <li> R Squared Adjusted</li>
-            <li> BIAS</li>
-            <li> AIC</li>
-        </ul>
-        <br>
-        <h2 class="heading">Languages</h2>
-        <ul>
-            <li>Spanish (native)</li>
-            <li>English (advanced)</li>
-            <li>French (pre intermediate)</li>
-        </ul>
-
-        <br><h2 class="heading">Hobbies</h2>
-        <ul>
-            <li>Rubik's Cube (Phoenix Tournament avg: 25.37 segs, PB: 15.08 segs)</li>
-            <li>Play Guitar</li>
-            <li>Cycling (Uber Eats Rider)</li>
-            <li>Try to solve P vs NP problem</li>
-            <li>Netflix</li>
-            <li>Harry Potter</li>
-            <li>Marvel</li>
-        </ul>
-    </div>
-    <!-- End #skills -->
-
-    <div id="contact">
-        <h2>Get in Touch</h2>
-        <div id="contact-form">
-            <form method="POST" action="https://formspree.io/valc941226@gmail.com">
-                <input type="hidden" name="_subject" value="Contact request from personal website" />
-                <input type="email" name="_replyto" placeholder="Your email" required>
-                <textarea name="message" placeholder="Your message" required></textarea>
-                <button type="submit">Send</button>
-            </form>
+    <div class="portfolio-grid" id="portfolio-grid">
+      <!-- 1) InsideForest -->
+      <div class="portfolio-item" 
+           data-modal="modal1"
+           data-tech="python sklearn git github vsc">
+        <img src="images/insideforest.png" alt="InsideForest">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>InsideForest</p>
+            <hr>
+            <p>My first Python Library</p>
+          </div>
         </div>
-        <!-- End #contact-form -->
+      </div>
+  
+      <!-- 2) My first R package -->
+      <div class="portfolio-item" 
+           data-modal="modal2"
+           data-tech="r git github rstudio">
+        <img src="images/zk.png" alt="My first R package">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>My first R package</p>
+            <hr>
+            <p>Extends fitdist() + AD & KS tests</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 3) SQL Reporting tool -->
+      <div class="portfolio-item" 
+           data-modal="modal3"
+           data-tech="r sql git github rstudio">
+        <img src="images/project.jpg" alt="SQL Reporting tool">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>SQL Reporting tool</p>
+            <hr>
+            <p>Automated SQL & R reports</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 4) Ensemble Learning for Time-Series -->
+      <div class="portfolio-item" 
+           data-modal="modal4"
+           data-tech="r git github rstudio">
+        <img src="images/project2.jpg" alt="Ensemble Learning for Time-Series">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Ensemble Learning</p>
+            <hr>
+            <p>Time-Series Analysis</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 5) Wine production and sales optimization -->
+      <div class="portfolio-item"
+           data-modal="modal5"
+           data-tech="r git github rstudio">
+        <img src="images/project3.jpg" alt="Wine production and sales optimization">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Wine production & sales</p>
+            <hr>
+            <p>Time Series + Operations R.</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 6) My second R package -->
+      <div class="portfolio-item"
+           data-modal="modal6"
+           data-tech="r git github rstudio">
+        <img src="images/wzk.png" alt="My second R package">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>My second R package</p>
+            <hr>
+            <p>Accelerate code writing</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <!-- End #contact -->
+  </div>
+  
+  <!-- ==================================================
+       LOS MODALES (POPS-UPS) CON ESTRELLAS
+       ================================================== -->
+  
+  <!-- 1) InsideForest -->
+  <div class="modal-custom" id="modal1">
+    <div class="stars-container" id="stars-1"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal1">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/insideforest.png');">
+        <h5 class="modal-title">InsideForest</h5>
+        <a href="https://github.com/jcval94/InsideForest"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Repo
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/python.png" alt="Python">
+          <img src="images/sklearn.png" alt="sklearn">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+          <img src="images/vsc.png" alt="VSC">
+        </div>
+        <p>
+          InsideForest is a Random Forest extended technique which provides a comprehensive AI solution
+          for identifying and describing categories within data.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 2) My first R package -->
+  <div class="modal-custom" id="modal2">
+    <div class="stars-container" id="stars-2"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal2">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/zk.png');">
+        <h5 class="modal-title">My first R package</h5>
+        <a href="https://github.com/jcval94/FitUltD"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Repo
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/R.png" alt="R">
+          <img src="images/rstudio.png" alt="RStudio">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+        </div>
+        <p>
+          Extends the <code>fitdist()</code> function (from <em>fitdistrplus</em>) adding AD &amp; KS tests,
+          offering a new function that uses mixed and multimodal distributions to fit,
+          split via unsupervised learning.
+        </p>
+        <ul>
+          <li>Growth rates among interest rates</li>
+          <li>Insurance policies frequency</li>
+          <li>Fraud detection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 3) SQL Reporting tool -->
+  <div class="modal-custom" id="modal3">
+    <div class="stars-container" id="stars-3"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal3">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/project.jpg');">
+        <h5 class="modal-title">SQL Reporting tool</h5>
+        <a href="https://valc941226.shinyapps.io/SQL_Reports/"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Project
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/R.png" alt="R">
+          <img src="images/rstudio.png" alt="RStudio">
+          <img src="images/sql.png" alt="SQL">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+        </div>
+        <p>
+          Tool to compile SQL queries and R code in the same database, generating automatable driven reports.
+        </p>
+        <ul>
+          <li>Saving roughly 10 hours per week</li>
+          <li>SQL, R, Excel and Word (or PDF) integration</li>
+          <li>Real Time Analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 4) Ensemble Learning for Time-Series -->
+  <div class="modal-custom" id="modal4">
+    <div class="stars-container" id="stars-4"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal4">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/project2.jpg');">
+        <h5 class="modal-title">Ensemble Learning for Time-Series</h5>
+        <a href="https://jcval94.shinyapps.io/Ensemble-Learning-for-Time-Series/"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Project
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/R.png" alt="R">
+          <img src="images/rstudio.png" alt="RStudio">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+        </div>
+        <p>
+          Time Series Analysis (TSA) to fit more strictly the seasonal component by using Fourier series and
+          machine learning models. This project includes seasonality tests and an automatable ARIMA model
+          to compare discrepancy.
+        </p>
+        <ul>
+          <li>Population aging</li>
+          <li>Pricing, products' consumption and their seasonality</li>
+          <li>Emergence of seasonal diseases</li>
+          <li>Fraud detection</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 5) Wine production and sales optimization -->
+  <div class="modal-custom" id="modal5">
+    <div class="stars-container" id="stars-5"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal5">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/project3.jpg');">
+        <h5 class="modal-title">Wine production &amp; sales</h5>
+        <a href="https://github.com/jcval94/Articles/blob/master/TSA_Wine.pdf"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Project
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/R.png" alt="R">
+          <img src="images/rstudio.png" alt="RStudio">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+        </div>
+        <p>
+          Testing Time Series predictions, getting the optimal wine sales strategy through Operations Research.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 6) My second R package -->
+  <div class="modal-custom" id="modal6">
+    <div class="stars-container" id="stars-6"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal6">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/wzk.png');">
+        <h5 class="modal-title">My second R package</h5>
+        <a href="https://github.com/jcval94/shortcuts"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Project
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/R.png" alt="R">
+          <img src="images/rstudio.png" alt="RStudio">
+          <img src="images/git.png" alt="Git">
+          <img src="images/github.png" alt="GitHub">
+        </div>
+        <p>
+          The goal of shortcuts is to accelerate code writing in R and RStudio via addins.
+        </p>
+        <ul>
+          <li>Copy and Paste tables into R without using code.</li>
+          <li>Get every argument and its values from a function.</li>
+          <li>Automated clean code and apply styling to it.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <footer>
+  
+<style>
+    /* Contenedor principal */
+    .education-cards-wrapper.paused {
+    animation-play-state: paused;
+    }
+    .education-cards-container {
+      display: flex;
+      overflow-x: hidden; /* Oculta la barra de desplazamiento */
+      padding: 10px 0;
+      position: relative;
+      cursor: grab; /* Efecto de arrastre */
+    }
+    
+    /* Wrapper que contiene todas las tarjetas */
+    .education-cards-wrapper {
+      display: flex;
+      gap: 20px;
+      animation: scrollLeft 30s linear infinite; /* Movimiento automático */
+    }
+    
+    /* Animación infinita */
+    @keyframes scrollLeft {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-50%); /* Solo mover la mitad, ya que duplicamos los elementos */
+      }
+    }
+    
+    /* Estilos de cada tarjeta */
+    .card {
+      flex: 0 0 auto;
+      width: 250px;
+      height: 320px;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    /* Destacar UNAM y UP */
+    .card.unam, .card.up {
+      background: linear-gradient(135deg, #f2f2f2, white);
+      border: 2px solid #3498db;
+      box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Efecto hover más llamativo */
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Permitir que el usuario haga "pan" */
+    .education-cards-container.grabbing {
+      cursor: grabbing;
+    }
+    </style>
+    
+    <section id="education" class="bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-5 copyright">
-                    <p>
-                        Copyright &copy; 2020 José Carlos Del Valle López
-                    </p>
-                </div>
-                <div class="col-sm-2 top">
-                    <span id="to-top">
-                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
-                    </span>
-                </div>
-                <div class="col-sm-5 social">
-                    <ul>
-                        <li>
-                            <a href="https://github.com/jcval94" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://stackoverflow.com/" target="_blank"><i class="fa fa-stack-overflow" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.linkedin.com/in/jose-carlos-del-valle/?locale=en_US" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/jose.carlos.del.valle94" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                        </li>
-                    </ul>
-                </div>
+          <div class="row">
+            <div class="col-lg-12 text-center d-flex flex-column" style="padding-bottom: 3%; align-items: center;">
+              <p style="display:inline; font-size: 35px; margin: 0;">Education</p>
+              <hr style="width: 100px; height: 1px; border: none; color: #333; background-color: #333; margin: 10px 0;">
             </div>
+      
+            <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 20px;">
+              <h3 class="section-subheading text-muted text-center"
+                  style="max-width: 600px; line-height: 27px; margin: 0;">
+                MSc. Data Science, BSc Actuarial Science, AWS, Scrum, Tableau, ...
+              </h3>
+            </div>
+      
+            <!-- Carrusel con "pan" y animación infinita -->
+            <div class="education-cards-container">
+                
+              <div class="education-cards-wrapper">
+                <!-- Tarjetas de educación -->
+
+                <!-- ML Avanzado -->
+                <div class="card">
+                    <img src="images/uciii.png" style="width: 50px; margin-bottom: 8px;" alt="ML Avanzado">
+                    <h4>ML Avanzado</h4>
+                    <p>Universidad Carlos III de Madrid</p>
+                    <a href="https://drive.google.com/drive/u/0/folders/115WgICpBV6pwd8Syjoh6E_hOTueI4-xH" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                  </div>  
+
+                <!-- Certificación en Ciencia de Datos -->
+                <div class="card">
+                    <img src="images/universidad_de_navarra.png" style="width: 50px; margin-bottom: 8px;" alt="Certificación en Ciencia de Datos">
+                    <h4>Certificación en Ciencia de Datos</h4>
+                    <p>Universidad de Navarra<br><span style="color:#777;font-size:0.85rem;">Expedición: ene. 2022</span></p>
+                    <a href="https://drive.google.com/drive/u/0/folders/115WgICpBV6pwd8Syjoh6E_hOTueI4-xH" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                  </div>
+        
+                <!-- Tarjeta UNAM -->
+                <div class="card unam">
+                  <img src="images/unam_logo.png" style="width: 50px; margin-bottom: 8px;" alt="UNAM Logo">
+                  <h4>Universidad Nacional Autónoma de México</h4>
+                  <p><strong>BSc Actuarial Science</strong><br><span style="color:#777;font-size:0.85rem;">2013 - 2018</span></p>
+                  <p style="font-size: 0.9rem;">
+                    • Ayudante en Análisis Matemático (1 semestre)<br>
+                    • Instructor en Programa Preventivo para Materias con Alto Índice de Reprobación<br>
+                    • IMEF Universitario (Subdirector)<br>
+                  </p>
+                </div>
+      
+                <!-- Tarjeta UP -->
+                <div class="card up">
+                  <img src="images/up_logo.png" style="width: 50px; margin-bottom: 8px;" alt="UP Logo">
+                  <h4>Universidad Panamericana</h4>
+                  <p><strong>MSc Data Science</strong><br><span style="color:#777;font-size:0.85rem;">jun. 2023 - dic. 2024</span></p>
+                  <p style="font-size: 0.9rem;">
+                    <strong>Nota:</strong> 9.6<br>
+                    Modelos avanzados, visualización, storytelling, analítica avanzada, liderazgo y proyectos en la nube.
+                  </p>
+                </div>
+      
+                <!-- Tarjetas de certificaciones -->
+                <!-- Supply Chain Logistics -->
+                <div class="card">
+                  <img src="images/rutgers_university.png" style="width: 50px; margin-bottom: 8px;" alt="Supply Chain Logistics">
+                  <h4>Supply Chain Logistics</h4>
+                  <p>Rutgers University<br><span style="color:#777;font-size:0.85rem;">Expedición: mar. 2022</span></p>
+                  <a href="https://www.coursera.org/account/accomplishments/verify/5AA3T6BTEFJW?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Professional Scrum Master I -->
+                <div class="card">
+                  <img src="images/scrum.png" style="width: 50px; margin-bottom: 8px;" alt="Professional Scrum Master I">
+                  <h4>Professional Scrum Master I</h4>
+                  <p>Scrum.org<br><span style="color:#777;font-size:0.85rem;">Expedición: feb. 2020</span></p>
+                  <a href="https://www.scrum.org/certificates/507770" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+
+                <!-- AWS Amazon SageMaker -->
+                <div class="card">
+                  <img src="images/aws.png" style="width: 50px; margin-bottom: 8px;" alt="AWS Amazon SageMaker">
+                  <h4>AWS Amazon SageMaker</h4>
+                  <p>edX<br><span style="color:#777;font-size:0.85rem;">Expedición: sept. 2021</span></p>
+                  <a href="https://courses.edx.org/certificates/f9ec849f8629416f9919f84d0d910267" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Introduction to Artificial Intelligence in Python -->
+                <div class="card">
+                  <img src="images/cs50-harvard.png" style="width: 50px; margin-bottom: 8px;" alt="Introduction to AI in Python">
+                  <h4>Introduction to AI in Python</h4>
+                  <p>CS50<br><span style="color:#777;font-size:0.85rem;">Expedición: dic. 2020</span></p>
+                  <a href="https://certificates.cs50.io/9e83890f-a03c-4421-b11a-5cba23e1ea08.pdf?size=letter" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Tableau Desktop Specialist -->
+                <div class="card">
+                  <img src="images/tableau.png" style="width: 50px; margin-bottom: 8px;" alt="Tableau Desktop Specialist">
+                  <h4>Tableau Desktop Specialist</h4>
+                  <p>Tableau<br><span style="color:#777;font-size:0.85rem;">Expedición: jun. 2020</span></p>
+                  <a href="https://www.youracclaim.com/badges/e9fbb7ad-21f2-4d66-bb5c-73019cb70747/linked_i" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Salesforce Certified Einstein Analytics -->
+                <div class="card">
+                  <img src="images/salesforce.png" style="width: 50px; margin-bottom: 8px;" alt="Salesforce Certified Einstein Analytics">
+                  <h4>Salesforce Certified Einstein Analytics</h4>
+                  <p>Salesforce<br><span style="color:#777;font-size:0.85rem;">Expedición: sept. 2020 · Venc.: abr. 2022</span></p>
+                  <a href="https://www.salesforce.com/trailblazer/jdelvalle2" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- CS50's Introduction to Computer Science -->
+                <div class="card">
+                  <img src="images/cs50-harvard.png" style="width: 50px; margin-bottom: 8px;" alt="CS50's Introduction to Computer Science">
+                  <h4>CS50's Introduction to Computer Science</h4>
+                  <p>CS50<br><span style="color:#777;font-size:0.85rem;">Expedición: jun. 2020</span></p>
+                  <a href="https://certificates.cs50.io/fa653363-34ce-40dc-a050-5ab38da09645.pdf?size=letter" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Visualizing Data with Python -->
+                <div class="card">
+                  <img src="images/ibm.png" style="width: 50px; margin-bottom: 8px;" alt="Visualizing Data with Python">
+                  <h4>Visualizing Data with Python</h4>
+                  <p>IBM<br><span style="color:#777;font-size:0.85rem;">Expedición: oct. 2019</span></p>
+                  <a href="https://courses.edx.org/certificates/75ca7e15b6b24dc89ea1cc6798f277aa" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+      
+                <!-- Analyzing Data with Python -->
+                <div class="card">
+                  <img src="images/ibm.png" style="width: 50px; margin-bottom: 8px;" alt="Analyzing Data with Python">
+                  <h4>Analyzing Data with Python</h4>
+                  <p>IBM<br><span style="color:#777;font-size:0.85rem;">Expedición: oct. 2019</span></p>
+                  <a href="https://courses.edx.org/certificates/92c5bc10cbe143648237f259ec667c2d" target="_blank" style="font-size:0.8rem;color:#3498db;">Ver certificación</a>
+                </div>
+
+                <!-- Tarjeta CCPM Systems Technician -->
+                <div class="card">
+                    <img src="images/ccpm.png" style="width: 50px; margin-bottom: 8px;" alt="Sistemas Computacionales">
+                    <h4>Centro de Computación Profesional de México (CCPM)</h4>
+                    <p><strong>Systems Computers Technician</strong><br><span style="color:#777;font-size:0.85rem;">dic. 2011 - ago. 2013</span></p>
+                    <p style="font-size: 0.9rem;">
+                        Sistemas Computacionales, VBA, SQL, MS Office<br>
+                        GPA: 99 (>99%, Hons)
+                    </p>
+                    </div>
+        
+                    <!-- Tarjeta CCPM Graphic Design -->
+                    <div class="card">
+                        <img src="images/ccpm.png" style="width: 50px; margin-bottom: 8px;" alt="Diseño gráfico Digital">
+                    <h4>Centro de Computación Profesional de México (CCPM)</h4>
+                    <p><strong>Digital Graphic Design Technician</strong><br><span style="color:#777;font-size:0.85rem;">sept. 2010 - dic. 2011</span></p>
+                    <p style="font-size: 0.9rem;">
+                        Adobe Flash, Photoshop, Illustrator, HTML, Blender, 3D Studio Max<br>
+                        GPA: 100 (>99%, Hons)
+                    </p>
+                    </div>
+
+              </div>
+            </div>
+          </div>
         </div>
-    </footer>
-    <!-- End footer -->
+      </section>
+      
+    
+    <script>
+        const container = document.querySelector('.education-cards-container');
+        const wrapper = document.querySelector('.education-cards-wrapper');
+        
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let resumeTimeout;
+      
+        function pauseAnimation() {
+          clearTimeout(resumeTimeout);
+          wrapper.classList.add('paused');
+        }
+      
+        function resumeAnimation() {
+          clearTimeout(resumeTimeout);
+          resumeTimeout = setTimeout(() => {
+            wrapper.classList.remove('paused');
+          }, 1000);
+        }
+      
+        container.addEventListener('mousedown', (e) => {
+          isDown = true;
+          container.classList.add('grabbing');
+          pauseAnimation();
+          startX = e.pageX - container.offsetLeft;
+          scrollLeft = container.scrollLeft;
+        });
+      
+        container.addEventListener('mouseleave', () => {
+          isDown = false;
+          container.classList.remove('grabbing');
+          resumeAnimation();
+        });
+      
+        container.addEventListener('mouseup', () => {
+          isDown = false;
+          container.classList.remove('grabbing');
+          resumeAnimation();
+        });
+      
+        container.addEventListener('mousemove', (e) => {
+          if (!isDown) return;
+          e.preventDefault();
+          const x = e.pageX - container.offsetLeft;
+          // Invertimos el cálculo del desplazamiento para que el scroll siga la dirección del movimiento
+          const walk = (startX - x) * 1.5;
+          container.scrollLeft = scrollLeft + walk;
+        });
+      </script>
+      
+      
+      
+    
+  <!-- End #education -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/scripts.min.js"></script>
+  <div id="experience" class="background-alt">
+    <h2 class="heading">Experience</h2>
+    <div id="experience-timeline">
+      <div data-date="Mexico City, May 2021 – Present">
+        <h3>BBVA</h3>
+        <h4>Data Scientist / Analyst / Associate / Expert</h4>
+        <p>
+          From 2021 onward, I have driven data science initiatives within BBVA, focusing on compliance, operational optimization, and client-centric solutions:
+          <ul>
+            <li><strong>Demand Forecasting & Data Engineering:</strong> Enhanced ML models and ETL processes ...</li>
+            <li><strong>ATM Distribution Model:</strong> Engineered the methodology ...</li>
+            <li><strong>Client Segmentation & Engagement:</strong> Classified ...</li>
+            <li><strong>Fraud Detection & Compliance:</strong> Created an algorithm ...</li>
+            <li><strong>LLM Adoption & Regulatory Integration:</strong> Leveraged large language models ...</li>
+          </ul>
+        </p>
+      </div>
+      <div data-date="Mexico City, December 2019 – May 2021">
+        <h3>Management Solutions</h3>
+        <h4>Business Consultant / Senior Data Scientist</h4>
+        <p>
+          <ul>
+            <li><strong>Insurance Sales Process Optimization:</strong> ...</li>
+            <li><strong>Cost Forecasting & Savings:</strong> ...</li>
+            <li><strong>False Clarifications Prediction:</strong> ...</li>
+            <li><strong>Fraud Prevention Collaboration:</strong> ...</li>
+          </ul>
+        </p>
+      </div>
+      <div data-date="Dublin, April 2019 – November 2019">
+        <h3>ISI English Language School</h3>
+        <h4>Independent R Developer & English Language Exchange Student</h4>
+        <p>Developed Shiny Apps, custom functions, and R libraries ...</p>
+      </div>
+      <div data-date="Mexico City, October 2017 – March 2019">
+        <h3>Management Solutions</h3>
+        <h4>Data Analytics / Business Consultant</h4>
+        <p>Analyzed demographic patterns for epidemiology ...</p>
+      </div>
+      <div data-date="Mexico City, January 2017 – July 2017">
+        <h3>National University Autonomous of Mexico</h3>
+        <h4>Mathematical Analysis Teacher Assistant</h4>
+        <p>Simplified complex mathematical concepts ...</p>
+      </div>
+      <div data-date="Mexico City, August 2014 – October 2015">
+        <h3>IMEF Universitary</h3>
+        <h4>Research and Social Responsibility Vice President</h4>
+        <p>Founded a Debate Team ...</p>
+      </div>
+    </div>
+  </div>
+  <!-- End #experience -->
+
+  <div id="skills">
+    <h2 class="heading">Soft Skills</h2>
+    <ul>
+      <li>Communication</li>
+      <li>Creativity</li>
+      <li>Teamwork</li>
+      <li>Work Ethic</li>
+      <li>Problem Solving</li>
+      <li>Time Management</li>
+      <li>Meditation</li>
+    </ul>
+    <br>
+    <h2 class="heading">Certificates and Awards</h2>
+    <ul>
+      <li>IELTS (6.0) (In progress to get 7.5)</li>
+      <li>Scrum Master</li>
+      <li>Python Data Science - IBM</li>
+      <li>ISI English Language School (B2+) (C1 level in progress)</li>
+      <li>Artificial Intelligence - HarvardX (In progress)</li>
+    </ul>
+    <br>
+    <h2 class="heading">Programming Languages and Softwares</h2>
+    <ul>
+      <li>R &amp; RStudio</li>
+      <li>Python</li>
+      <li>SQL</li>
+      <li>VBA</li>
+      <li>Excel</li>
+      <li>MS Access</li>
+      <li>HTML</li>
+      <li>Scala</li>
+    </ul>
+    <br>
+    <h2 class="heading">Statistics &amp; More</h2>
+    <ul>
+      <li>Data Quality</li>
+      <li>Copula Theory</li>
+      <li>Time Series</li>
+      <li>Simulation</li>
+      <li>Finance</li>
+      <li>Game Theory</li>
+      <li>Risk Theory</li>
+      <li>Ruin Theory</li>
+      <li>Actuarial Mathematics</li>
+      <li>Goodness of Fit tests</li>
+      <li>ANOVA</li>
+      <li>Outliers detection</li>
+      <li>ROC</li>
+      <li>Accuracy Score</li>
+      <li>R Squared Adjusted</li>
+      <li>BIAS</li>
+      <li>AIC</li>
+    </ul>
+    <br>
+    <h2 class="heading">Languages</h2>
+    <ul>
+      <li>Spanish (native)</li>
+      <li>English (advanced)</li>
+      <li>French (pre intermediate)</li>
+    </ul>
+    <br>
+    <h2 class="heading">Hobbies</h2>
+    <ul>
+      <li>Rubik's Cube (Phoenix Tournament avg: 25.37 segs, PB: 15.08 segs)</li>
+      <li>Play Guitar</li>
+      <li>Cycling (Uber Eats Rider)</li>
+      <li>Try to solve P vs NP problem</li>
+      <li>Netflix</li>
+      <li>Harry Potter</li>
+      <li>Marvel</li>
+    </ul>
+  </div>
+  <!-- End #skills -->
+
+  <div id="contact">
+    <h2>Get in Touch</h2>
+    <div id="contact-form">
+      <form method="POST" action="https://formspree.io/valc941226@gmail.com">
+        <input type="hidden" name="_subject" value="Contact request from personal website" />
+        <input type="email" name="_replyto" placeholder="Your email" required>
+        <textarea name="message" placeholder="Your message" required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+  <!-- End #contact -->
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-5 copyright">
+          <p>
+            Copyright &copy; 2020 José Carlos Del Valle López
+          </p>
+        </div>
+        <div class="col-sm-2 top">
+          <span id="to-top">
+            <i class="fa fa-chevron-up" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="col-sm-5 social">
+          <ul>
+            <li><a href="https://github.com/jcval94" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>
+            <li><a href="https://stackoverflow.com/" target="_blank"><i class="fa fa-stack-overflow" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.linkedin.com/in/jose-carlos-del-valle/?locale=en_US" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+            <li><a href="https://www.facebook.com/jose.carlos.del.valle94" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End footer -->
+
+  <!-- ===============================================
+       SCRIPTS (jQuery, scripts.min.js, Bootstrap 4)
+       =============================================== -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/scripts.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"></script>
+
+  <!-- SCRIPT JS para manejar los pop-ups de la NUEVA SECCIÓN -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Seleccionamos los items de la nueva sección:
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+      // Botones de cierre:
+      const closeButtons = document.querySelectorAll('.close-button');
+      // Todos los modals:
+      const modals = document.querySelectorAll('.modal-custom');
+
+      // Al hacer click en un .portfolio-item, abrimos su modal
+      portfolioItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          document.getElementById(modalId).classList.add('active');
+        });
+      });
+
+      // Al hacer click en el botón (X), cerramos su modal
+      closeButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const modalId = this.getAttribute('data-close');
+          document.getElementById(modalId).classList.remove('active');
+          e.stopPropagation(); // evita que cierre y reabra si hay un click anidado
+        });
+      });
+
+      // Al hacer click fuera del contenido, cierra modal
+      modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          // Si se hace click directamente en la capa oscura (modal-custom), se cierra
+          if (e.target === modal) {
+            modal.classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+      const closeButtons = document.querySelectorAll('.close-button');
+      const modals = document.querySelectorAll('.modal-custom');
+    
+      // Config de partículas (sin patrón de puntos)
+      const particlesConfig = {
+        "particles": {
+          "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
+          "color": { "value": "#ffffff" },
+          "shape": { "type": "circle" },
+          "opacity": { "value": 0.4 },
+          "size": { "value": 2, "random": true },
+          "line_linked": { "enable": false },
+          "move": {
+            "enable": true,
+            "speed": 0.5,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out"
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": { "enable": false },
+            "onclick": { "enable": false },
+            "resize": true
+          }
+        },
+        "retina_detect": true
+      };
+    
+      // Al hacer clic en una imagen (portfolio-item), abrimos su modal y activamos partículas
+      portfolioItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const modalId = this.getAttribute('data-modal');
+          const modalEl = document.getElementById(modalId);
+          modalEl.classList.add('active');
+    
+          // ID del contenedor de estrellas, p.e. #stars-1 o #stars-2
+          const starsId = 'stars-' + modalId.split('modal')[1];
+          const starsContainer = document.getElementById(starsId);
+    
+          // Removemos cualquier canvas previo (si el usuario cierra y reabre)
+          while (starsContainer.firstChild) {
+            starsContainer.removeChild(starsContainer.firstChild);
+          }
+          // Reestablecemos la opacidad
+          starsContainer.style.opacity = '1';
+    
+          // Inicializa particles.js en starsContainer
+          particlesJS(starsId, particlesConfig);
+    
+          // Después de 5s, desvanecemos las partículas en 2s
+          setTimeout(() => {
+            starsContainer.style.opacity = '0';
+            // Removemos el canvas tras 2s (ya invisible)
+            setTimeout(() => {
+              while (starsContainer.firstChild) {
+                starsContainer.removeChild(starsContainer.firstChild);
+              }
+            }, 2000);
+          }, 5000);
+        });
+      });
+    
+      // Botón (X) cierra el modal
+      closeButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const modalId = this.getAttribute('data-close');
+          document.getElementById(modalId).classList.remove('active');
+          e.stopPropagation();
+        });
+      });
+    
+      // Cerrar modal al hacer click fuera del contenido
+      modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+          if (e.target === modal) {
+            modal.classList.remove('active');
+          }
+        });
+      });
+    });
+</script>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Seleccionamos los botones de filtro y los items
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tech = btn.getAttribute('data-tech');
+    
+          // Si el botón es "all", mostramos todo
+          if (tech === 'all') {
+            portfolioItems.forEach(item => {
+              item.style.display = 'flex'; // Cada tarjeta se mostrará en el flex grid
+            });
+          } else {
+            // Ocultamos o mostramos según contenga la tecnología en data-tech
+            portfolioItems.forEach(item => {
+              const itemTech = item.getAttribute('data-tech').split(' ');
+              if (itemTech.includes(tech)) {
+                item.style.display = 'flex';
+              } else {
+                item.style.display = 'none';
+              }
+            });
+          }
+        });
+      });
+    });
+    </script>
+    
+
+
 </body>
-
+<div id="stars-effect"></div>
 </html>
