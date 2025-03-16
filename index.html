@@ -198,6 +198,41 @@
     margin-right: 8px;
     vertical-align: middle;
     }
+    /* Contenedor de botones para alinearlos en horizontal */
+    .btn-container {
+      position: absolute;
+      top: 20px;  /* Distancia desde el borde superior */
+      right: 20px;  /* Distancia desde el borde derecho */
+      display: flex;  /* Utilizamos flexbox para alinear los botones */
+      flex-direction: row;  /* Los botones se alinean en fila (horizontalmente) */
+      gap: 10px;  /* Espacio entre los botones */
+      align-items: center;  /* Alinea los botones verticalmente en el centro */
+    }
+
+    /* Estilo para cada botón */
+    .btn-to-projects {
+      padding: 10px 20px;
+      background-color: #2f589e2d;  /* Color de fondo */
+      color: #fff;  /* Color del texto */
+      border: none;
+      border-radius: 5px;  /* Bordes redondeados */
+      font-size: 14px;  /* Tamaño de fuente */
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      transition: all 0.3s ease;  /* Transición suave para el hover */
+    }
+
+    /* Efecto hover: invertir colores */
+    .btn-to-projects:hover {
+      background-color: #fff;  /* Cambia el color de fondo al pasar el ratón */
+      color: #333;  /* Cambia el color del texto */
+    }
+
+    /* Desplazamiento suave al hacer clic en el enlace */
+    html {
+      scroll-behavior: smooth;
+    }
 
   </style>
 </head>
@@ -212,6 +247,12 @@
       <strong><h2 style="color:#fff"> Actuary | Data Scientist </h2></strong>
       <a target="_blank" href="https://docs.google.com/document/d/1x-F2Jos3H3sOz94S-y-RJOwkTSA5jPOQ15LSxT78zIM/edit?usp=sharing" class="btn-rounded-white">Download Resume</a>
     </div>
+    <div class="btn-container">
+      <a href="#about" class="btn-to-projects">About</a>
+      <a href="#projects" class="btn-to-projects">Projects</a>
+      <a href="#education" class="btn-to-projects">Education</a>
+    </div>
+    
   </div>
   <!-- End #lead -->
 
@@ -234,7 +275,7 @@
         </div>
         <div class="col-md-8">
           <p>
-            I believe in the greatness of every job—every effort, when embraced with humility, becomes a seed of transformation. Empathy is the bridge that connects our experiences with those of others, turning understanding into life-changing actions. Transforming data into impactful solutions is more than just work; it is a daily commitment to innovation, excellence, and making a genuine difference in the world.
+            I believe in the greatness of every job—every effort, when embraced with humility, becomes a seed of transformation. Empathy is the bridge that connects our experiences with those of others, turning understanding into life-changing actions. Transforming data into impactful solutions is more than just work, it is a daily commitment to innovation, excellence, and making a genuine difference in the world.
           </p>
         </div>
       </div>
@@ -242,8 +283,8 @@
   </div>
   <!-- End #about -->
 
-  <!-- <div class="pryectos-grid", style="background:#f2f2f5;"> -->
-  <div  id="projects" class="background-alt">
+<!-- <div class="pryectos-grid", style="background:#f2f2f5;"> -->
+  <div id="projects" class="background-alt">
     <h2 class="heading2">Projects</h2>
     <!-- Botones de filtrado -->
     <div class="tech-filter-buttons">
@@ -260,8 +301,9 @@
     <div class="portfolio-grid" id="portfolio-grid">
       <!-- 1) InsideForest -->
       <div class="portfolio-item" 
-           data-modal="modal1"
-           data-tech="python sklearn git github vsc">
+          data-modal="modal1"
+          data-tech="python sklearn git github vsc"
+          style="box-shadow: 10px 14px 18px rgba(156, 149, 51, 0.373);">
         <img src="images/insideforest.png" alt="InsideForest">
         <div class="portfolio-hover">
           <div class="portfolio-hover-content">
@@ -341,6 +383,63 @@
           </div>
         </div>
       </div>
+  
+      <!-- 7) Movilidad Social en México App -->
+      <div class="portfolio-item" 
+          data-modal="modal7"
+          data-tech="python"
+          style="box-shadow: 10px 14px 18px rgba(156, 149, 51, 0.373);">
+        <img src="images/movilidad_social.png" alt="Movilidad Social en México App">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Movilidad Social en México App</p>
+            <hr>
+            <p>Social mobility insights in Mexico</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 8) Database management online App -->
+      <div class="portfolio-item" 
+           data-modal="modal8"
+           data-tech="python sql">
+        <img src="images/database_management.png" alt="Database management online App">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Database Management Online</p>
+            <hr>
+            <p>Manage your database online</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 9) Movie Recommendation ChatBot on GCP -->
+      <div class="portfolio-item" 
+           data-modal="modal9"
+           data-tech="python git">
+        <img src="images/movie_recommendation_chatbot.png" alt="Movie Recommendation ChatBot on GCP">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Movie Recommendation ChatBot</p>
+            <hr>
+            <p>GCP | Cloud Function & Front End</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 10) Tendencias y Score de Éxito -->
+      <div class="portfolio-item" 
+           data-modal="modal10"
+           data-tech="sql">
+        <img src="images/tendencias.png" alt="Tendencias y Score de Éxito">
+        <div class="portfolio-hover">
+          <div class="portfolio-hover-content">
+            <p>Tendencias y Score de Éxito</p>
+            <hr>
+            <p>Interactive Looker Studio report</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   
@@ -348,35 +447,42 @@
        LOS MODALES (POPS-UPS) CON ESTRELLAS
        ================================================== -->
   
-  <!-- 1) InsideForest -->
-  <div class="modal-custom" id="modal1">
-    <div class="stars-container" id="stars-1"></div>
-    <div class="modal-content-custom">
-      <span class="close-button" data-close="modal1">&times;</span>
-      <div class="modal-header-custom" style="background-image: url('images/insideforest.png');">
-        <h5 class="modal-title">InsideForest</h5>
-        <a href="https://github.com/jcval94/InsideForest"
-           target="_blank"
-           class="btn-rounded-white"
-           style="margin-left:auto;">
-          View Repo
-        </a>
+<!-- 1) InsideForest -->
+<div class="modal-custom" id="modal1">
+  <div class="stars-container" id="stars-1"></div>
+  <div class="modal-content-custom" style="border: 2px solid #333;">
+    <span class="close-button" data-close="modal1">&times;</span>
+    <div class="modal-header-custom" style="background-image: url('images/insideforest.png');">
+      <h5 class="modal-title">InsideForest</h5>
+      <a href="https://github.com/jcval94/InsideForest"
+         target="_blank"
+         class="btn-rounded-white"
+         style="margin-left:auto;">
+        View Repo
+      </a>
+      <a href="https://www.linkedin.com/posts/jose-carlos-del-valle_ai-oportunidad-inteligenciaartificial-activity-7042317044490330112-B2cb/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACtwNfgBDdKI4K6JCwP9ekWpsOtsvft7OYE"
+         target="_blank"
+         class="btn-rounded-white"
+         style="margin-left:10px;">
+        View Demo
+      </a>
+    </div>
+    <div class="modal-body-custom">
+      <div class="tech-icons">
+        <img src="images/python.png" alt="Python">
+        <img src="images/sklearn.png" alt="sklearn">
+        <img src="images/git.png" alt="Git">
+        <img src="images/github.png" alt="GitHub">
+        <img src="images/vsc.png" alt="VSC">
       </div>
-      <div class="modal-body-custom">
-        <div class="tech-icons">
-          <img src="images/python.png" alt="Python">
-          <img src="images/sklearn.png" alt="sklearn">
-          <img src="images/git.png" alt="Git">
-          <img src="images/github.png" alt="GitHub">
-          <img src="images/vsc.png" alt="VSC">
-        </div>
-        <p>
-          InsideForest is a Random Forest extended technique which provides a comprehensive AI solution
-          for identifying and describing categories within data.
-        </p>
-      </div>
+      <p>
+        InsideForest is a Random Forest extended technique which provides a comprehensive AI solution
+        for identifying and describing categories within data.
+      </p>
     </div>
   </div>
+</div>
+
   
   <!-- 2) My first R package -->
   <div class="modal-custom" id="modal2">
@@ -543,9 +649,118 @@
       </div>
     </div>
   </div>
-</div>
-
   
+<!-- 7) Movilidad Social en México App -->
+<div class="modal-custom" id="modal7">
+  <div class="stars-container" id="stars-7"></div>
+  <div class="modal-content-custom" style="border: 2px solid #333;">
+    <span class="close-button" data-close="modal7">&times;</span>
+    <div class="modal-header-custom" style="background-image: url('images/movilidad_social.png');">
+      <h5 class="modal-title">Movilidad Social en México App</h5>
+      <a href="https://movilidad-social-mx.streamlit.app/"
+         target="_blank"
+         class="btn-rounded-white"
+         style="margin-left:auto;">
+        View App
+      </a>
+      <a href="https://www.linkedin.com/posts/jose-carlos-del-valle_ai-oportunidad-inteligenciaartificial-activity-7042317044490330112-B2cb/?utm_source=share&utm_medium=member_desktop&rcm=ACoAACtwNfgBDdKI4K6JCwP9ekWpsOtsvft7OYE"
+         target="_blank"
+         class="btn-rounded-white"
+         style="margin-left:10px;">
+        View Demo
+      </a>
+    </div>
+    <div class="modal-body-custom">
+      <div class="tech-icons">
+        <img src="images/python.png" alt="Python">
+        <img src="images/streamlit.png" alt="Streamlit">
+      </div>
+      <p>
+        A web application built with Streamlit that provides interactive visualizations and insights on social mobility trends in Mexico.
+      </p>
+    </div>
+  </div>
+</div>
+  
+  <!-- 8) Database management online App -->
+  <div class="modal-custom" id="modal8">
+    <div class="stars-container" id="stars-8"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal8">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/database_management.png');">
+        <h5 class="modal-title">Database Management Online App</h5>
+        <a href="https://upfundamentosbbdd-jcdvl.streamlit.app/"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View App
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/python.png" alt="Python">
+          <img src="images/sql.png" alt="SQL">
+        </div>
+        <p>
+          An online platform designed to simplify database management and streamline query execution with interactive tools.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 9) Movie Recommendation ChatBot on GCP -->
+  <div class="modal-custom" id="modal9">
+    <div class="stars-container" id="stars-9"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal9">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/movie_recommendation_chatbot.png');">
+        <h5 class="modal-title">Movie Recommendation ChatBot on GCP</h5>
+        <a href="https://www.linkedin.com/posts/jose-carlos-del-valle_es-una-gran-noche-para-agradecer-y-celebrar-activity-7249259994976518144-1Ve1?utm_source=share&utm_medium=member_desktop&rcm=ACoAACtwNfgBDdKI4K6JCwP9ekWpsOtsvft7OYE"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View ChatBot
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/python.png" alt="Python">
+          <img src="images/gcp.png" alt="GCP">
+          <img src="images/git.png" alt="Git">
+        </div>
+        <p>
+          A chatbot that provides movie recommendations based on user preferences, leveraging Google Cloud Platform services including Cloud Functions and a modern front end.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 10) Tendencias y Score de Éxito -->
+  <div class="modal-custom" id="modal10">
+    <div class="stars-container" id="stars-10"></div>
+    <div class="modal-content-custom">
+      <span class="close-button" data-close="modal10">&times;</span>
+      <div class="modal-header-custom" style="background-image: url('images/tendencias.png');">
+        <h5 class="modal-title">Tendencias y Score de Éxito</h5>
+        <a href="https://lookerstudio.google.com/reporting/ceeba1a5-e8b3-4776-8d97-c892713aa54d/page/PNFbE?s=u4kA13FirQ0"
+           target="_blank"
+           class="btn-rounded-white"
+           style="margin-left:auto;">
+          View Report
+        </a>
+      </div>
+      <div class="modal-body-custom">
+        <div class="tech-icons">
+          <img src="images/sql.png" alt="SQL">
+        </div>
+        <p>
+          An interactive Looker Studio report showcasing trending metrics and success scores, providing deep insights into data trends.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+
 <style>
     /* Contenedor principal */
     .education-cards-wrapper.paused {
@@ -611,8 +826,9 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12 text-center d-flex flex-column" style="padding-bottom: 3%; align-items: center;">
-              <p style="display:inline; font-size: 35px; margin: 0;">Education</p>
-              <hr style="width: 100px; height: 1px; border: none; color: #333; background-color: #333; margin: 10px 0;">
+            
+              <h2 class="heading">Education</h2>
+              <!-- <hr style="width: 100px; height: 1px; border: none; color: #333; background-color: #333; margin: 10px 0;"> -->
             </div>
       
             <div style="display: flex; justify-content: center; width: 100%; margin-bottom: 20px;">
@@ -829,56 +1045,74 @@
   <div id="experience" class="background-alt">
     <h2 class="heading">Experience</h2>
     <div id="experience-timeline">
-      <div data-date="Mexico City, May 2021 – Present">
-        <h3>BBVA</h3>
-        <h4>Data Scientist / Analyst / Associate / Expert</h4>
+      <!-- BBVA México Experience -->
+      <div data-date="Mexico City, Mar 2024 – Present">
+        <h3>BBVA México</h3>
+        <h4>Data Scientist – Expert</h4>
         <p>
-          From 2021 onward, I have driven data science initiatives within BBVA, focusing on compliance, operational optimization, and client-centric solutions:
-          <ul>
-            <li><strong>Demand Forecasting & Data Engineering:</strong> Enhanced ML models and ETL processes ...</li>
-            <li><strong>ATM Distribution Model:</strong> Engineered the methodology ...</li>
-            <li><strong>Client Segmentation & Engagement:</strong> Classified ...</li>
-            <li><strong>Fraud Detection & Compliance:</strong> Created an algorithm ...</li>
-            <li><strong>LLM Adoption & Regulatory Integration:</strong> Leveraged large language models ...</li>
-          </ul>
+          Leading a team to ensure compliance with regulatory requirements and meet operational goals. Implemented business and expert-defined rules using a blend of supervised and unsupervised models, anomaly detection, and descriptive statistics. Techniques included Isolation Forest, goodness-of-fit tests based on Benford’s Law, and specialized interpretability algorithms.
+        </p>
+        <p>
+          Designed an algorithm to predict client claim probabilities—reducing the evaluation pool from 1 in 450 to 1 in 34—and identified key factors driving claims to effectively detect fraud.
+        </p>
+        <p>
+          Deployed large language models to translate internal bank regulations into user-friendly responses, which improved fraud detection accuracy from 19% to 37% while reducing false positives.
         </p>
       </div>
-      <div data-date="Mexico City, December 2019 – May 2021">
-        <h3>Management Solutions</h3>
-        <h4>Business Consultant / Senior Data Scientist</h4>
+      <div data-date="Mexico City, May 2022 – Mar 2024">
+        <h3>BBVA México</h3>
+        <h4>Data Scientist – Associate</h4>
         <p>
-          <ul>
-            <li><strong>Insurance Sales Process Optimization:</strong> ...</li>
-            <li><strong>Cost Forecasting & Savings:</strong> ...</li>
-            <li><strong>False Clarifications Prediction:</strong> ...</li>
-            <li><strong>Fraud Prevention Collaboration:</strong> ...</li>
-          </ul>
+          Classified customers into profiles to prioritize outreach by using tailored classification tools and leveraging the OpenAI API for detailed customer insights. Developed a supervised model (“Best Time to Call”) to identify optimal contact times and integrated this strategy with existing recommendation systems.
+        </p>
+        <p>
+          This approach identified high-value customer segments (valued at MXN $80,000 per client) while filtering out low-value groups (MXN $102 per client).
         </p>
       </div>
-      <div data-date="Dublin, April 2019 – November 2019">
-        <h3>ISI English Language School</h3>
-        <h4>Independent R Developer & English Language Exchange Student</h4>
-        <p>Developed Shiny Apps, custom functions, and R libraries ...</p>
+      <div data-date="Mexico City, May 2021 – Apr 2022">
+        <h3>BBVA México</h3>
+        <h4>Data Scientist – Analyst</h4>
+        <p>
+          Evaluated and adapted machine learning models and ETL processes for forecasting the demand for banknotes and coins across BBVA’s financial subsidiaries. Analyzed market potential, competitive landscape, and key performance indicators to support decisions on deploying or decommissioning ATMs and branches using clustering techniques and data visualization tools.
+        </p>
+        <p>
+          Developed a decision-support tool that pinpointed optimal growth opportunities, leading to an ATM distribution model that saves MXN 1 million per redistributed ATM annually.
+        </p>
       </div>
-      <div data-date="Mexico City, October 2017 – March 2019">
+      <!-- Management Solutions Experience -->
+      <div data-date="Mexico City, Jul 2020 – May 2021">
         <h3>Management Solutions</h3>
-        <h4>Data Analytics / Business Consultant</h4>
-        <p>Analyzed demographic patterns for epidemiology ...</p>
+        <h4>Business Consultant – Senior Data Scientist</h4>
+        <p>
+          Led a multidisciplinary team to forecast monthly mainframe operations costs using Bayesian linear regression. Developed a machine learning model and interactive dashboard with PySpark and MicroStrategy to predict false clarifications.
+        </p>
+        <p>
+          Collaborated with the fraud prevention team to prioritize customer clarifications by integrating expert insights, resulting in quarterly savings of up to MXN 1.8 million and increasing daily processing capacity from 25 to 120 cases per analyst.
+        </p>
       </div>
-      <div data-date="Mexico City, January 2017 – July 2017">
-        <h3>National University Autonomous of Mexico</h3>
-        <h4>Mathematical Analysis Teacher Assistant</h4>
-        <p>Simplified complex mathematical concepts ...</p>
+      <div data-date="Mexico City, Nov 2019 – Jul 2020">
+        <h3>Management Solutions</h3>
+        <h4>Business Consultant – Data Specialist (Assistant II)</h4>
+        <p>
+          Assisted in the migration of corporate tools to Salesforce by translating business rules into front-end development and performing A/B testing on the deployed solutions. Supported the data migration from a data lake to a data warehouse by defining data layouts, formats, and relationships, ensuring information consistency.
+        </p>
+        <p>
+          This effort culminated in the successful migration of 20,000 million rows of data.
+        </p>
       </div>
-      <div data-date="Mexico City, August 2014 – October 2015">
-        <h3>IMEF Universitary</h3>
-        <h4>Research and Social Responsibility Vice President</h4>
-        <p>Founded a Debate Team ...</p>
+      <div data-date="Mexico City, Oct 2017 – Mar 2019">
+        <h3>Management Solutions</h3>
+        <h4>Business Consultant – Data Specialist (Assistant)</h4>
+        <p>
+          Designed key performance indicators for fraud detection related to excessive sales and prescriptions using principal component analysis and outlier detection techniques. Developed a custom R package to support these efforts and defined KPIs to assess the insured’s willingness and ability to pay using unsupervised learning.
+        </p>
+        <p>
+          These initiatives led to identifying eight fraud cases per month and the creation of a user-friendly monitoring application, ensuring the health of the insurance portfolio.
+        </p>
       </div>
     </div>
   </div>
-  <!-- End #experience -->
-
+  
   <div id="skills">
     <h2 class="heading">Soft Skills</h2>
     <ul>
@@ -971,7 +1205,7 @@
       <div class="row">
         <div class="col-sm-5 copyright">
           <p>
-            Copyright &copy; 2020 José Carlos Del Valle López
+            Copyright &copy; 2025 José Carlos Del Valle López
           </p>
         </div>
         <div class="col-sm-2 top">
