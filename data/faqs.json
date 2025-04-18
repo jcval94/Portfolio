@@ -1,7 +1,7 @@
 [
     {
       "question": "¿Por qué en 2019 hay un gap de 9 meses en Management Solutions (MS)?",
-      "answer": "Solicité una pausa en MS para participar en un intercambio en Irlanda, reforzar mi inglés y publicar mi primera librería en R (FitUltD)."
+      "answer": "Solicité una pausa en MS para participar en un intercambio en Irlanda (🇮🇪), reforzar mi inglés y publicar mi primera librería en R (FitUltD)."
     },
     {
       "question": "¿Los proyectos mostrados aquí son relacionados al trabajo?",
@@ -16,12 +16,12 @@
       "answer": "Soy Actuario (UNAM), ex‑consultor en MS y ahora Expert Data Scientist en BBVA México con una MSc en Data Science."
     },
     {
-      "question": "¿Cuál es tu proyecto de detección de fraude más destacado?",
-      "answer": "Implementé un sistema híbrido de modelos supervisados y no supervisados que equilibra oferta y demanda geográfica a nivel nacional."
+      "question": "¿Cuál es tu proyecto más destacado?",
+      "answer": "Implementé un sistema híbrido de modelos supervisados y no supervisados que calcula la oferta y demanda geográfica a nivel nacional para la colocación de Sucursales y ATMS."
     },
     {
       "question": "¿Qué certificaciones y formaciones complementan tu perfil?",
-      "answer": "IBM Data Science Professional, Harvard CS50, Tableau, Scrum, Salesforce, entre otras."
+      "answer": "Certificación en Ciencia de Datos U. Navarra & Carlos III, IBM Data Science Professional, Harvard CS50, Tableau, Scrum, Salesforce, entre otras."
     }
   ]
   
