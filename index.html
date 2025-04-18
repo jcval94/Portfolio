@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="libs/font-awesome/css/font-awesome.min.css">
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/faqChat.css">
+
 
   <!-- Estilos ESPECÍFICOS para la NUEVA SECCIÓN de pop-ups. Puedes moverlos a css/styles.css -->
   <style>
@@ -212,7 +214,7 @@
     /* Estilo para cada botón */
     .btn-to-projects {
       padding: 10px 20px;
-      background-color: #2f589e2d;  /* Color de fondo */
+      background-color: #2f589ecc;  /* Color con menos transparencia (~80% opacidad) */
       color: #fff;  /* Color del texto */
       border: none;
       border-radius: 5px;  /* Bordes redondeados */
@@ -233,6 +235,10 @@
     html {
       scroll-behavior: smooth;
     }
+
+  /* ==== FAQ bubble & mini‑chat ================================================= */
+
+
 
   </style>
 </head>
@@ -1393,8 +1399,32 @@
       });
     });
     </script>
-    
 
+<!-- ░░░ ② NUEVO BOTÓN FLOTANTE + CHAT FAQ ───────────────────────────── -->
+
+  <!-- ░░ MINI‑CHAT FAQ ░░ -->
+  <button id="chat-launcher" class="chat-launcher">
+    <i class="fa fa-comments-o" aria-hidden="true"></i>
+  </button>
+
+  <div id="chat-wrapper" class="chat-wrapper">
+    <div class="chat-header">
+      FAQs
+      <span id="chat-close" class="chat-close">&times;</span>
+    </div>
+
+    <div id="chat-box"    class="chat-box"></div>
+
+    <form id="chat-form"  class="chat-input">
+      <input  id="chat-input" type="text" placeholder="Escribe una pregunta…" autocomplete="off" />
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script src="js/faqChat.js"></script>
+
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
 
 </body>
 <div id="stars-effect"></div>
