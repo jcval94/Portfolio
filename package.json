@@ -1,10 +1,14 @@
 {
-  "name": "devportfolio-template",
+  "name": "jcval94-portfolio",
   "version": "1.1.3",
-  "description": "",
+  "private": true,
+  "description": "Personal portfolio website",
   "main": "js/scripts.js",
   "scripts": {
-    "watch": "gulp watch"
+    "build": "npm run build:styles && npm run build:scripts",
+    "build:styles": "sass --no-source-map --style=compressed scss/styles.scss css/styles.css",
+    "build:scripts": "terser js/scripts.js --compress --mangle --comments '/^!/' --output js/scripts.min.js",
+    "watch": "sass --watch --no-source-map --style=compressed scss/styles.scss:css/styles.css"
   },
   "keywords": [
     "portfolio",
@@ -14,15 +18,13 @@
     "coding",
     "dev"
   ],
-  "author": "Ryan Fitzgerald",
+  "author": "José Carlos Del Valle",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "devDependencies": {
-    "gulp": "^4.0.0",
-    "gulp-autoprefixer": "^6.0.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-uglify": "^3.0.1",
-    "gulp-wait": "0.0.2"
+    "sass": "1.104.1",
+    "terser": "5.51.2"
   }
 }
