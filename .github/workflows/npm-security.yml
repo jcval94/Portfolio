@@ -1,0 +1,47 @@
+name: npm security
+
+on:
+  pull_request:
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "scss/**"
+      - "js/**"
+      - ".github/workflows/npm-security.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "package.json"
+      - "package-lock.json"
+      - "scss/**"
+      - "js/**"
+      - ".github/workflows/npm-security.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit --audit-level=moderate
+
+      - name: Build static assets
+        run: npm run build
+
+      - name: Verify generated assets are committed
+        run: git diff --exit-code -- css/styles.css js/scripts.min.js
